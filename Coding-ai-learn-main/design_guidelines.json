@@ -1,0 +1,179 @@
+{
+  "app_name": "SyntaxAI SMA",
+  "personality": "2 Material You / Expressive LIGHT",
+  "personality_one_liner": "Sebuah aplikasi pembelajaran coding dan AI tingkat SMA yang interaktif, penuh warna tonal, dan edukatif dengan gamifikasi mendalam.",
+  "color": {
+    "surface": "#F8FAFC",
+    "onSurface": "#0F172A",
+    "surfaceSecondary": "#FFFFFF",
+    "onSurfaceSecondary": "#1E293B",
+    "surfaceTertiary": "#F1F5F9",
+    "onSurfaceTertiary": "#334155",
+    "surfaceInverse": "#0F172A",
+    "onSurfaceInverse": "#F8FAFC",
+    "brand": "#0EA5E9",
+    "brandPrimary": "#0284C7",
+    "onBrandPrimary": "#FFFFFF",
+    "brandSecondary": "#38BDF8",
+    "onBrandSecondary": "#0F172A",
+    "brandTertiary": "#E0F2FE",
+    "onBrandTertiary": "#0369A1",
+    "success": "#10B981",
+    "onSuccess": "#FFFFFF",
+    "warning": "#F59E0B",
+    "onWarning": "#FFFFFF",
+    "error": "#EF4444",
+    "onError": "#FFFFFF",
+    "info": "#3B82F6",
+    "onInfo": "#FFFFFF",
+    "border": "#E2E8F0",
+    "borderStrong": "#CBD5E1",
+    "divider": "#F1F5F9",
+    "muted": "#64748B",
+    "onBrand": "#FFFFFF"
+  },
+  "typography": {
+    "displayFontFamily": "Outfit",
+    "textFontFamily": "Plus Jakarta Sans",
+    "scale": {
+      "sm": 12,
+      "base": 14,
+      "lg": 16,
+      "xl": 20,
+      "2xl": 24
+    }
+  },
+  "spacing": {
+    "rule": "Generous touch targets and comfortable vertical rhythm with modular tonal cards",
+    "xs": 4,
+    "sm": 8,
+    "md": 12,
+    "lg": 16,
+    "xl": 24,
+    "2xl": 32,
+    "3xl": 48
+  },
+  "radius_tokens": {
+    "sm": 6,
+    "md": 12,
+    "lg": 20,
+    "pill": 999
+  },
+  "shadow_tier": "0",
+  "navigation": "bottom_tabs",
+  "icon_set": "MaterialCommunityIcons",
+  "glassmorphism": {
+    "enabled": false,
+    "do's": [
+      "Use tonal containers, layered surfaces, and adaptive contrast",
+      "Soft pill filters and expressive rounded navigation"
+    ],
+    "dont's": [
+      "Heavy shadows",
+      "Default indigo Material styling"
+    ]
+  },
+  "platform_libraries": {
+    "glass": {
+      "ios": "expo-glass-effect",
+      "android": "expo-blur",
+      "low_end_android_fallback": "solid surfaceSecondary"
+    },
+    "image": "expo-image",
+    "blur": "expo-blur",
+    "bottom_sheet": "@gorhom/bottom-sheet",
+    "animation": "react-native-reanimated",
+    "gesture": "react-native-gesture-handler"
+  },
+  "screens": [
+    {
+      "name": "Auth",
+      "purpose": "Email/password authentication with registration and login tabs",
+      "states": {
+        "loading": "Centered spinner during auth verification",
+        "empty": "Empty form fields with clear inline validation",
+        "error": "Banner or alert with readable error message and retry button"
+      },
+      "layout": "Centered clean form with expressive tonal branding and primary CTA anchored above keyboard"
+    },
+    {
+      "name": "Onboarding",
+      "purpose": "Introduce students to coding and AI learning paths tailored for SMA/SMK",
+      "states": {
+        "loading": "Skeleton screen for slides",
+        "empty": "Default illustration and start button",
+        "error": "Retry action for asset loading"
+      },
+      "layout": "Full-bleed carousel with illustrated scenes, title, descriptive text, and pill pagination dots"
+    },
+    {
+      "name": "Home",
+      "purpose": "Main dashboard showing daily streak, level/XP, active learning path, and quick access to modules",
+      "states": {
+        "loading": "Skeleton loaders for streak card and course modules",
+        "empty": "Welcome banner with CTA to pick first course",
+        "error": "Retry button with network error banner"
+      },
+      "layout": "Scrollable vertical feed with sticky top greeting header, streak widget, course quick-access cards, and AI daily tip card"
+    },
+    {
+      "name": "Belajar",
+      "purpose": "Learning catalog with paths for Python, JavaScript, C++, Java, HTML/CSS, and Artificial Intelligence",
+      "states": {
+        "loading": "Grid skeleton loaders",
+        "empty": "Empty state illustration with reset search button",
+        "error": "Failed to load modules error card with retry"
+      },
+      "layout": "Filterable category tabs at top with 2-column modular cards for each topic and progress indicator"
+    },
+    {
+      "name": "Praktik",
+      "purpose": "Interactive sandbox, syntax dictionary, syntax comparison, live HTML/CSS playground, and coding challenges",
+      "states": {
+        "loading": "Sandbox loading indicator",
+        "empty": "No code snippet found state",
+        "error": "Execution sandbox timeout or syntax error message"
+      },
+      "layout": "Split tab interface for Sandbox, Syntax Search & Compare, and Live HTML/CSS output preview"
+    },
+    {
+      "name": "Progress",
+      "purpose": "Gamification center showing XP, level, badges, streak counter, achievements, bookmarks, notes, and history",
+      "states": {
+        "loading": "Loading badge and stats skeleton",
+        "empty": "No history or bookmarks yet state with start learning CTA",
+        "error": "Error loading user telemetry"
+      },
+      "layout": "Tabbed telemetry view with top XP level badge, streak card, and categorized list of achievements, bookmarks, and notes"
+    },
+    {
+      "name": "Profil",
+      "purpose": "User profile, settings, AI ethics module access, dark mode toggle, terms/privacy, and account deletion",
+      "states": {
+        "loading": "Profile skeleton loader",
+        "empty": "Default guest profile state",
+        "error": "Failed to update profile settings error"
+      },
+      "layout": "Vertical settings list grouped by tonal containers with account details, AI ethics quick link, and danger zone for account deletion"
+    }
+  ],
+  "images": {
+    "hero_onboarding": {
+      "url": "https://images.unsplash.com/photo-1767449280971-46e438b1ce4a?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "alt": "Coding learning student mobile app UI"
+    },
+    "ai_banner": {
+      "url": "https://images.unsplash.com/photo-1787285187589-ddbdf58b81b1?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "alt": "AI and coding illustration"
+    }
+  },
+  "instructions_to_main_agent": [
+    "Build a fully functioning React Native Expo mobile app for 'SyntaxAI SMA' targeting SMA/SMK students in Indonesian.",
+    "Ensure bottom navigation features exactly 5 tabs: HOME, BELAJAR, PRAKTIK, PROGRESS, PROFIL.",
+    "Implement robust isolated/sandbox execution for Python, JavaScript, C++, and Java code snippets, and live preview for HTML/CSS.",
+    "Include gamification: XP, level, badges, streak, achievements, bookmarks, notes, and history.",
+    "Include AI learning and AI ethics modules.",
+    "Provide email/password authentication flow with persistence.",
+    "Support light/dark mode and ensure all accessibility and touch target standards (>= 44x44pt) are respected."
+  ]
+}

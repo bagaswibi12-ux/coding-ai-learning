@@ -1,0 +1,13 @@
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Tabs } from "expo-router";
+import { NativeTabs } from "expo-router/unstable-native-tabs";
+import { Platform } from "react-native";
+
+import { usesNativeTabs } from "@/src/navigation";
+import { useTheme } from "@/src/theme";
+
+export default function TabLayout() {
+  const { colors } = useTheme();
+  if (usesNativeTabs) return <NativeTabs><NativeTabs.Trigger name="index"><NativeTabs.Trigger.Icon sf="house.fill" /><NativeTabs.Trigger.Label>Home</NativeTabs.Trigger.Label></NativeTabs.Trigger><NativeTabs.Trigger name="learn"><NativeTabs.Trigger.Icon sf="book.fill" /><NativeTabs.Trigger.Label>Belajar</NativeTabs.Trigger.Label></NativeTabs.Trigger><NativeTabs.Trigger name="practice"><NativeTabs.Trigger.Icon sf="play.circle.fill" /><NativeTabs.Trigger.Label>Praktik</NativeTabs.Trigger.Label></NativeTabs.Trigger><NativeTabs.Trigger name="progress"><NativeTabs.Trigger.Icon sf="chart.bar.fill" /><NativeTabs.Trigger.Label>Progress</NativeTabs.Trigger.Label></NativeTabs.Trigger><NativeTabs.Trigger name="profile"><NativeTabs.Trigger.Icon sf="person.fill" /><NativeTabs.Trigger.Label>Profil</NativeTabs.Trigger.Label></NativeTabs.Trigger></NativeTabs>;
+  return <Tabs screenOptions={{ headerShown: false, tabBarActiveTintColor: colors.brandPrimary, tabBarInactiveTintColor: colors.muted, tabBarStyle: { ...(Platform.OS === "web" ? { height: 64 } : {}) }, tabBarItemStyle: { alignSelf: "center" }, tabBarLabelStyle: { fontSize: 11, fontWeight: "700" } }}><Tabs.Screen name="index" options={{ title: "Home", tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name="home-variant-outline" color={color} size={size} /> }} /><Tabs.Screen name="learn" options={{ title: "Belajar", tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name="book-open-page-variant-outline" color={color} size={size} /> }} /><Tabs.Screen name="practice" options={{ title: "Praktik", tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name="play-circle-outline" color={color} size={size} /> }} /><Tabs.Screen name="progress" options={{ title: "Progress", tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name="chart-bar" color={color} size={size} /> }} /><Tabs.Screen name="profile" options={{ title: "Profil", tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name="account-circle-outline" color={color} size={size} /> }} /></Tabs>;
+}

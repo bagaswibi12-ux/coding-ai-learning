@@ -1,0 +1,34 @@
+{
+  "summary": "Iteration 3 (AI Tutor + Leaderboard) PASSES. Backend: 7/7 new tests green against public preview (tutor message, context follow-up, conversation list, detail, delete, leaderboard all + week). Frontend (mobile 390x844): home -> tutor-button -> tutor-welcome with 4 suggestions, clicking tutor-suggestion-0 renders tutor-msg-0 (user) then tutor-msg-1 (assistant) in Bahasa Indonesia (~8-15s latency, confirmed Indonesian markers + analogi + no full code dump). tutor-history-button -> /tutor/history lists 3 tutor-conv-* with tutor-delete-* buttons and tutor-new-chat returns to empty welcome. Leaderboard: /leaderboard shows leaderboard-my-rank, Rank #1 QA 105 XP masked as 'QA S.' with is_me=true (kamu), 'Minggu ini' pill switches scope without error, bottom 'Lihat All-time/Minggu ini' toggle also flips scope. Profile menu: profile-tutor -> /tutor, profile-leaderboard -> /leaderboard both navigate correctly. Regression (iter-2 flows) implicit via login + navigation reused. Deprecated expo-av/expo-barcode-scanner/expo-background-fetch not present in server/UI code reviewed.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "tutor/index.tsx", "issues": ["Input row and send button meet 44pt target (inputRow paddingBottom uses insets.bottom + 10 so chat input sits above home indicator). KeyboardAvoidingView present for iOS. OK."]}
+    ],
+    "react_native_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_syntaxai_api.py",
+    "/app/backend/tests/test_tutor_leaderboard.py",
+    "/app/test_reports/pytest/tutor_leaderboard.xml",
+    "/app/test_reports/ui/leaderboard3.jpeg"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "server.py tutor_message does a dead-branch LlmChat replay with 'break' then throws it away before building the fresh_chat — the first LlmChat call is pure overhead and silently swallowed on exception; recommend removing the first chat block to save tokens/latency (saves ~1 LLM round-trip of risk).",
+    "Context injection in tutor_message inlines last 8 turns verbatim without token budgeting — long conversations could exceed Claude context eventually; consider trimming to a char/token cap.",
+    "Weekly leaderboard uses ISO string compare on updated_at >= week_ago which works because now_iso() stores timezone-aware ISO; mix with naive strings would break. Current code is consistent — OK."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_tutor_leaderboard.py",
+    "/app/test_reports/iteration_3.json"
+  ],
+  "success_rate": {"backend": "100% (7/7 new; 21/21 regression unchanged)", "frontend": "100% (tutor chat, history, new-chat, leaderboard all+week+bottom-toggle, profile shortcuts)"},
+  "seed_data_creation": "None. Used existing QA user; 3 pre-existing tutor conversations observed and left intact (one new conversation created by first-message test was deleted by test_tutor_delete).",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "pytest /app/backend/tests/test_tutor_leaderboard.py validates tutor+leaderboard. Tutor LLM latency ~8-15s so UI tests must wait >=30s for tutor-msg-1. Leaderboard masked name format: 'First L.' (two chars with dot) or single word; is_me entry present for QA. Weekly scope may be empty for fresh DBs — treat tutor-leaderboard-empty as valid.",
+  "rca_of_issue": "N/A — no bugs found this iteration."
+}

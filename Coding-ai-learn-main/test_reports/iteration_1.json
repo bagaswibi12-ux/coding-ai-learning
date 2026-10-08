@@ -1,0 +1,27 @@
+{
+  "summary": "Mobile Expo preview loaded onboarding and auth screens, but the QA login UI stayed on an indefinite spinner while the same public login API succeeds directly.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "Auth login", "issue": "After entering the provided QA credentials and tapping Masuk ke SyntaxAI, the button remains in loading state and the app does not navigate or show an error.", "testID": "missing; login button has no testID", "priority": "HIGH"}
+    ],
+    "integration_issues": [
+      {"flow": "Onboarding skip -> QA login -> authenticated Home", "issue": "UI login did not produce a request visible in backend logs and remained indefinitely busy, although POST /api/auth/login returns 200 for the same credentials via the public endpoint.", "affected_testIDs": ["missing testIDs for email/password/login"]}
+    ],
+    "design_issues": [],
+    "react_native_issues": []
+  },
+  "test_report_links": ["/app/test_reports/iteration_1.json", "/app/memory/test_credentials.md"],
+  "action_items": ["Debug the web client API URL/fetch path and ensure Auth submit always resolves or times out into an error; verify login sends POST /api/auth/login and redirects to /(tabs).", "Add testID attributes to auth inputs, mode controls, submit button, and key tab/screen elements for regression coverage."],
+  "critical_code_review_comments": ["src/api.ts reads EXPO_PUBLIC_BACKEND_URL, while the requested environment contract names EXPO_BACKEND_URL; verify the deployed Expo bundle uses the intended variable and does not resolve an empty or stale URL.", "Auth submit has no request timeout, so a failed/hanging fetch leaves busy=true indefinitely."],
+  "updated_files": ["/app/test_reports/iteration_1.json"],
+  "success_rate": {"backend": "100% for direct login smoke", "frontend": "50% (onboarding/auth render; login-to-home failed)"},
+  "seed_data_creation": "None",
+  "retest_needed": true,
+  "should_call_test_agent_after_fix": true,
+  "context_for_next_testing_agent": "Use 390x844. Fresh public preview opened /onboarding, skip reached /auth. QA credentials are in /app/memory/test_credentials.md. Direct requests POST https://code-master-app-6.preview.emergentagent.com/api/auth/login returned 200, but UI login stayed on spinner and no corresponding backend POST appeared in logs.",
+  "rca_of_issue": "Reproduction: open public preview in a fresh session, tap Lewati untuk sekarang, fill qa.syntaxai@gmail.com and Belajar123!, tap Masuk ke SyntaxAI. The button changes to spinner and remains there after 2.5s; URL remains /auth. Backend direct login works. Likely client-side API URL/environment resolution or fetch behavior, compounded by missing timeout/error fallback in submit."
+}
